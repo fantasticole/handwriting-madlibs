@@ -1,0 +1,9 @@
+.details * {
+  display: inline-block;
+}
+p {
+  margin: 0 2px;
+}
+input {
+  text-align: center;
+}

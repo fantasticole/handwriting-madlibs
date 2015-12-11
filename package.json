@@ -1,0 +1,27 @@
+{
+  "name": "madlibs",
+  "version": "1.0.0",
+  "description": "madlibs site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "babel-runtime": "^5.8.25",
+    "bootstrap": "^3.3.5",
+    "browser-request": "^0.3.3",
+    "css-loader": "^0.19.0",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
+    "react": "^0.14.0",
+    "react-color": "^1.2.1",
+    "react-dom": "^0.14.0",
+    "style-loader": "^0.12.4",
+    "webpack": "^1.12.2"
+  }
+}
