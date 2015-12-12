@@ -118,6 +118,7 @@
 				var identifier = _reactDom2['default'].findDOMNode(this).className;
 				var text = _reactDom2['default'].findDOMNode(this).value;
 
+				// have text available to be updated
 				this.setState({
 					text: text
 				});
@@ -132,6 +133,7 @@
 		}, {
 			key: 'switchToImage',
 			value: function switchToImage(image) {
+				// set image class name
 				var imgClass = 'image-' + this.props.index;
 
 				this.setState({
@@ -147,22 +149,25 @@
 					type: 'input'
 				});
 			}
+
+			// select input text on fucos
 		}, {
-			key: 'componentDidUpdate',
-			value: function componentDidUpdate() {
-				// if (this.state.type === 'input' && this.state.text.length){
-				// 	ReactDOM.findDOMNode(this).focus()
-				// }
+			key: 'handleFocus',
+			value: function handleFocus(event) {
+				event.target.select();
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+				// render an input...
 				if (this.state.type === 'input') {
+					// with previously entered text
 					if (this.state.text) {
-						return _react2['default'].createElement('input', { type: 'text', defaultValue: this.state.text, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index });
+						return _react2['default'].createElement('input', { type: 'text', defaultValue: this.state.text, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index, autoFocus: true, onFocus: this.handleFocus });
 					}
 					return _react2['default'].createElement('input', { type: 'text', placeholder: this.props.placeholder, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index });
 				}
+				// render an image
 				return _react2['default'].createElement('img', { src: this.state.img, className: this.state.imgClass, onClick: this.switchToInput.bind(this) });
 			}
 		}]);

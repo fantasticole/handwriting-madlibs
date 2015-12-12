@@ -29,6 +29,7 @@ class Handwriting extends React.Component {
 		let identifier = ReactDOM.findDOMNode(this).className
 		let text = ReactDOM.findDOMNode(this).value
 
+		// have text available to be updated
 		this.setState({
 			text: text
 		})
@@ -39,6 +40,7 @@ class Handwriting extends React.Component {
 		}
 	}
 	switchToImage(image) {
+		// set image class name
 		let imgClass = 'image-' + this.props.index
 
 		this.setState({
@@ -52,17 +54,24 @@ class Handwriting extends React.Component {
 			type: 'input'
 		})
 	}
+	// select input text on fucos
+	handleFocus(event) {
+		event.target.select()
+	}
 	render() {
+		// render an input...
 		if (this.state.type === 'input'){
+			// with previously entered text
 			if (this.state.text){
 				return (
-		        	<input type='text' defaultValue={this.state.text} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`}></input>
+		        	<input type='text' defaultValue={this.state.text} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`} autoFocus onFocus={this.handleFocus}></input>
 				)
 			}
 			return (
 	        	<input type='text' placeholder={this.props.placeholder} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`}></input>
 			)
 		}
+		// render an image
 		return (
 			<img src={this.state.img} className={this.state.imgClass} onClick={this.switchToInput.bind(this)}/>
 		)
