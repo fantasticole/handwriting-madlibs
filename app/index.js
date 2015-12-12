@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom'
 import {appendToPage} from 'functions'
 import {getHandwriting} from 'api'
 
-
 class Madlibs extends React.Component {
 	componentWillMount() {
 	    this.setState({
@@ -57,7 +56,7 @@ class Madlibs extends React.Component {
 	    	story: story
 	    })
 
-	    getHandwriting('string', data => appendToPage(data, 'img'))
+		getHandwriting('string', 'testClass', data => appendToPage(data, 'img'))
 
 	}
 	render() {
