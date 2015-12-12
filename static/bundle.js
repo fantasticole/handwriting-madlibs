@@ -110,10 +110,13 @@
 				// get text for image class and div where it will go
 				var identifier = _reactDom2['default'].findDOMNode(this).className;
 				var text = _reactDom2['default'].findDOMNode(this).value;
-				// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-				(0, _api.getHandwriting)(text, identifier, function (data) {
-					return (0, _functions.appendToPage)(data, identifier);
-				});
+				// if there is text in the input box...
+				if (text.length > 0) {
+					// send the value to be turned into a handwriting image and give it the class name of the input it will replace
+					(0, _api.getHandwriting)(text, identifier, function (data) {
+						return (0, _functions.appendToPage)(data, identifier);
+					});
+				}
 			}
 		}, {
 			key: 'render',

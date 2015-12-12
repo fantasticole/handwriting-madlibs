@@ -24,8 +24,11 @@ class Handwriting extends React.Component {
 		// get text for image class and div where it will go
 		let identifier = ReactDOM.findDOMNode(this).className
 		let text = ReactDOM.findDOMNode(this).value
-		// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-		getHandwriting(text, identifier, data => appendToPage(data, identifier))
+		// if there is text in the input box...
+		if (text.length > 0){
+			// send the value to be turned into a handwriting image and give it the class name of the input it will replace
+			getHandwriting(text, identifier, data => appendToPage(data, identifier))
+		}
 	}
 	render() {
 		return (
