@@ -23,5 +23,7 @@ They'll want to hear my stories.
 
 Potential issues: punctuation
 
+Don't call the api again if the text doesn't change.
+
 
 
