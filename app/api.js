@@ -4,7 +4,7 @@ import {tokens} from 'config'
 export function getHandwriting(text, cb){
 	let parameters = {
 		url: 'render/png?',
-		handwriting_id: '31SB2CWG00DZ',
+		handwriting_id: '5WGWVW8800VV',
 		handwriting_size: '14px',
 		line_spacing: 1,
 		width: '130px',
