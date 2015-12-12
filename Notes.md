@@ -21,7 +21,7 @@ Store the image in the css as a string. Have Node render the handwriting image a
 
 They'll want to hear my stories.
 
-
+Potential issues: punctuation
 
 
 
