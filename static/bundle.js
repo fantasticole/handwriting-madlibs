@@ -87,12 +87,28 @@
 		}
 
 		_createClass(Handwriting, [{
-			key: 'onBlur',
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				// Check for the user hitting enter
+				_reactDom2['default'].findDOMNode(this).addEventListener('keydown', this.handleKeyDown);
+			}
+		}, {
+			key: 'handleKeyDown',
+			value: function handleKeyDown(key) {
+				// If the user hits enter...
+				var enter = 13;
+				if (key.keyCode === enter) {
+					// remove focus from the input
+					this.blur();
+				}
+			}
 
 			// when the input loses focus...
+		}, {
+			key: 'onBlur',
 			value: function onBlur() {
-				var text = _reactDom2['default'].findDOMNode(this).value;
 				var thisClass = _reactDom2['default'].findDOMNode(this).className;
+				var text = _reactDom2['default'].findDOMNode(this).value;
 				// send the value to be turned into a handwriting image and give it the class name of the input it will replace
 				(0, _api.getHandwriting)(text, thisClass, function (data) {
 					return (0, _functions.appendToPage)(data, 'img');

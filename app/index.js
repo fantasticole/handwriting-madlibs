@@ -7,10 +7,22 @@ import {appendToPage} from 'functions'
 import {getHandwriting} from 'api'
 
 class Handwriting extends React.Component {
+	componentDidMount() {
+		// Check for the user hitting enter
+	    ReactDOM.findDOMNode(this).addEventListener('keydown', this.handleKeyDown)
+	}
+	handleKeyDown(key) {
+		// If the user hits enter...
+		let enter = 13
+		if (key.keyCode === enter){
+			// remove focus from the input
+			this.blur()
+		}
+	}
 	// when the input loses focus...
-	onBlur(){
-		let text = ReactDOM.findDOMNode(this).value
+	onBlur() {
 		let thisClass = ReactDOM.findDOMNode(this).className
+		let text = ReactDOM.findDOMNode(this).value
 		// send the value to be turned into a handwriting image and give it the class name of the input it will replace
 		getHandwriting(text, thisClass, data => appendToPage(data, 'img'))
 	}
