@@ -78,6 +78,45 @@ class Handwriting extends React.Component {
 	}
 }
 
+class Paragraph extends React.Component {
+	componentWillMount() {
+	    this.setState({
+	    	text: this.shiftText(this.props.text)
+	    })
+	}
+	shiftText(string) {
+		let alphabet = 'abcdefghijklmnopqrstuvwxyz'
+		let upper = alphabet.toUpperCase()
+		let shifted = ''
+		let loc = 0
+		for (let x = 0; x < string.length; x++){
+			if (alphabet.indexOf(string[x]) !== -1){
+				loc = alphabet.indexOf(string[x])
+				loc=loc+13
+				if (loc > 25){
+					loc=loc-26
+				}
+				shifted += alphabet[loc]
+			} else if (upper.indexOf(string[x]) !== -1){
+				loc = upper.indexOf(string[x])
+				loc=loc+13
+				if (loc > 25){
+					loc=loc-26
+				}
+				shifted += upper[loc]
+			} else {
+				shifted += string[x]
+			}
+		}
+		return shifted
+	}
+	render() {
+		return (
+			<p className='blurry'>{this.state.text}</p>
+		)
+	}
+}
+
 class Madlibs extends React.Component {
 	componentWillMount() {
 	    this.setState({
@@ -104,7 +143,11 @@ class Madlibs extends React.Component {
 			},
 		    {
 		    	story_type: 'string',
-			    content: '. Little did I know, the '
+			    content: '.'
+			},
+		    {
+		    	story_type: 'string',
+			    content: ' Little did I know, the '
 			},
 		    {
 		    	story_type: 'input',
@@ -137,7 +180,7 @@ class Madlibs extends React.Component {
 				// if the part of the story is a string, add it to the page as a paragraph
 				if (piece.story_type === 'string'){
 					return (
-						<p key={i}>{piece.content}</p>
+						<Paragraph key={i} text={piece.content} />
 					)
 				}
 				// wrap input in a div which will hold the image when the input is replaced
@@ -150,12 +193,13 @@ class Madlibs extends React.Component {
 			return (
 	        	<div className='details'>
 		        	{madlib}
+		        	<button>Reveal!</button>
 				</div>
 			)
 		}
 		return (
         	<div className='details'>
-	        	<p>Yo</p>
+	        	<p>Loading...</p>
 			</div>
 		)
 
