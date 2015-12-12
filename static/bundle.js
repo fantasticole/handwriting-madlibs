@@ -77,8 +77,39 @@
 
 	var _api = __webpack_require__(195);
 
-	var Madlibs = (function (_React$Component) {
-		_inherits(Madlibs, _React$Component);
+	var Handwriting = (function (_React$Component) {
+		_inherits(Handwriting, _React$Component);
+
+		function Handwriting() {
+			_classCallCheck(this, Handwriting);
+
+			_get(Object.getPrototypeOf(Handwriting.prototype), 'constructor', this).apply(this, arguments);
+		}
+
+		_createClass(Handwriting, [{
+			key: 'onBlur',
+
+			// when the input loses focus...
+			value: function onBlur() {
+				var text = _reactDom2['default'].findDOMNode(this).value;
+				var thisClass = _reactDom2['default'].findDOMNode(this).className;
+				// send the value to be turned into a handwriting image and give it the class name of the input it will replace
+				(0, _api.getHandwriting)(text, thisClass, function (data) {
+					return (0, _functions.appendToPage)(data, 'img');
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2['default'].createElement('input', { type: 'text', placeholder: this.props.placeholder, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index });
+			}
+		}]);
+
+		return Handwriting;
+	})(_react2['default'].Component);
+
+	var Madlibs = (function (_React$Component2) {
+		_inherits(Madlibs, _React$Component2);
 
 		function Madlibs() {
 			_classCallCheck(this, Madlibs);
@@ -128,10 +159,6 @@
 				this.setState({
 					story: story
 				});
-
-				(0, _api.getHandwriting)('string', 'testClass', function (data) {
-					return (0, _functions.appendToPage)(data, 'img');
-				});
 			}
 		}, {
 			key: 'render',
@@ -147,7 +174,7 @@
 								piece.content
 							);
 						}
-						return _react2['default'].createElement('input', { key: i, type: 'text', placeholder: piece.content });
+						return _react2['default'].createElement(Handwriting, { key: i, placeholder: piece.content, index: i });
 					});
 					return _react2['default'].createElement(
 						'div',

@@ -6,6 +6,21 @@ import ReactDOM from 'react-dom'
 import {appendToPage} from 'functions'
 import {getHandwriting} from 'api'
 
+class Handwriting extends React.Component {
+	// when the input loses focus...
+	onBlur(){
+		let text = ReactDOM.findDOMNode(this).value
+		let thisClass = ReactDOM.findDOMNode(this).className
+		// send the value to be turned into a handwriting image and give it the class name of the input it will replace
+		getHandwriting(text, thisClass, data => appendToPage(data, 'img'))
+	}
+	render() {
+		return (
+        	<input type='text' placeholder={this.props.placeholder} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`}></input>
+		)
+	}
+}
+
 class Madlibs extends React.Component {
 	componentWillMount() {
 	    this.setState({
@@ -56,8 +71,6 @@ class Madlibs extends React.Component {
 	    	story: story
 	    })
 
-		getHandwriting('string', 'testClass', data => appendToPage(data, 'img'))
-
 	}
 	render() {
 		let story = this.state.story
@@ -70,7 +83,7 @@ class Madlibs extends React.Component {
 					)
 				}
 				return (
-					<input key={i} type='text' placeholder={piece.content}></input>
+					<Handwriting key={i} placeholder={piece.content} index={i}/>
 				)
 			})
 			return (
