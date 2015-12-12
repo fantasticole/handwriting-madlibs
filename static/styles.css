@@ -10,4 +10,6 @@ input {
 img[class*='image-'] {
   vertical-align: bottom;
   border-bottom: 2px solid black;
+  position: relative;
+  bottom: -5px;
 }

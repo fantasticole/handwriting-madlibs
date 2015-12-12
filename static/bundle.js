@@ -73,9 +73,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _functions = __webpack_require__(194);
-
-	var _api = __webpack_require__(195);
+	var _api = __webpack_require__(194);
 
 	var Handwriting = (function (_React$Component) {
 		_inherits(Handwriting, _React$Component);
@@ -87,6 +85,13 @@
 		}
 
 		_createClass(Handwriting, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				this.setState({
+					type: 'input'
+				});
+			}
+		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				// Check for the user hitting enter
@@ -107,21 +112,37 @@
 		}, {
 			key: 'onBlur',
 			value: function onBlur() {
+				var _this = this;
+
 				// get text for id of div where image will go
 				var identifier = _reactDom2['default'].findDOMNode(this).className;
 				var text = _reactDom2['default'].findDOMNode(this).value;
 				// if there is text in the input box...
 				if (text.length > 0) {
 					// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-					(0, _api.getHandwriting)(text, this.props.index, function (data) {
-						return (0, _functions.appendToPage)(data, identifier);
+					(0, _api.getHandwriting)(text, this.props.index, function (source) {
+						return _this.switchToImage(source);
 					});
 				}
 			}
 		}, {
+			key: 'switchToImage',
+			value: function switchToImage(image) {
+				var imgClass = 'image-' + this.props.index;
+
+				this.setState({
+					type: 'image',
+					img: image,
+					imgClass: imgClass
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				return _react2['default'].createElement('input', { type: 'text', placeholder: this.props.placeholder, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index });
+				if (this.state.type === 'input') {
+					return _react2['default'].createElement('input', { type: 'text', placeholder: this.props.placeholder, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index });
+				}
+				return _react2['default'].createElement('img', { src: this.state.img, className: this.state.imgClass });
 			}
 		}]);
 
@@ -20273,21 +20294,6 @@
 
 /***/ },
 /* 194 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.appendToPage = appendToPage;
-
-	function appendToPage(item, loc) {
-		document.getElementById(loc).appendChild(item);
-	}
-
-/***/ },
-/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20299,11 +20305,11 @@
 	});
 	exports.getHandwriting = getHandwriting;
 
-	var _browserRequest = __webpack_require__(196);
+	var _browserRequest = __webpack_require__(195);
 
 	var _browserRequest2 = _interopRequireDefault(_browserRequest);
 
-	var _config = __webpack_require__(197);
+	var _config = __webpack_require__(196);
 
 	function getHandwriting(text, index, cb) {
 		var parameters = {
@@ -20325,16 +20331,16 @@
 		}, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				// Confirm receipt of status: OK
-				var img = document.createElement('img');
-				img.src = 'https://' + _config.tokens.KEY + ':' + _config.tokens.SECRET + '@api.handwriting.io/render/png?handwriting_id=' + parameters.handwriting_id + '&handwriting_size=' + parameters.handwriting_size + '&line_spacing=' + parameters.line_spacing + '&handwriting_color=%23000000&width=' + parameters.width + '&height=' + parameters.height + '&text=' + text;
-				img.className = 'image-' + index;
-				cb(img);
+				// let img = document.createElement('img')
+				var src = 'https://' + _config.tokens.KEY + ':' + _config.tokens.SECRET + '@api.handwriting.io/render/png?handwriting_id=' + parameters.handwriting_id + '&handwriting_size=' + parameters.handwriting_size + '&line_spacing=' + parameters.line_spacing + '&handwriting_color=%23000000&width=' + parameters.width + '&height=' + parameters.height + '&text=' + text;
+				// img.className = 'image-' + index
+				cb(src);
 			}
 		});
 	}
 
 /***/ },
-/* 196 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Browser Request
@@ -20834,7 +20840,7 @@
 
 
 /***/ },
-/* 197 */
+/* 196 */
 /***/ function(module, exports) {
 
 	'use strict';

@@ -3,10 +3,14 @@ import 'styles/styles.less'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import {appendToPage} from 'functions'
 import {getHandwriting} from 'api'
 
 class Handwriting extends React.Component {
+	componentWillMount() {
+	    this.setState({
+	    	type: 'input'
+	    })
+	}
 	componentDidMount() {
 		// Check for the user hitting enter
 	    ReactDOM.findDOMNode(this).addEventListener('keydown', this.handleKeyDown)
@@ -27,12 +31,26 @@ class Handwriting extends React.Component {
 		// if there is text in the input box...
 		if (text.length > 0){
 			// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-			getHandwriting(text, this.props.index, data => appendToPage(data, identifier))
+			getHandwriting(text, this.props.index, source => this.switchToImage(source))
 		}
 	}
+	switchToImage(image) {
+		let imgClass = 'image-' + this.props.index
+
+		this.setState({
+			type: 'image',
+			img: image,
+			imgClass: imgClass
+		})
+	}
 	render() {
+		if (this.state.type === 'input'){
+			return (
+	        	<input type='text' placeholder={this.props.placeholder} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`}></input>
+			)
+		}
 		return (
-        	<input type='text' placeholder={this.props.placeholder} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`}></input>
+			<img src={this.state.img} className={this.state.imgClass}/>
 		)
 	}
 }
