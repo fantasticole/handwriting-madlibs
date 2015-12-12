@@ -28,10 +28,14 @@ class Handwriting extends React.Component {
 		// get text for id of div where image will go
 		let identifier = ReactDOM.findDOMNode(this).className
 		let text = ReactDOM.findDOMNode(this).value
+
+		this.setState({
+			text: text
+		})
 		// if there is text in the input box...
 		if (text.length > 0){
 			// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-			getHandwriting(text, this.props.index, source => this.switchToImage(source))
+			getHandwriting(text, source => this.switchToImage(source))
 		}
 	}
 	switchToImage(image) {
@@ -43,14 +47,24 @@ class Handwriting extends React.Component {
 			imgClass: imgClass
 		})
 	}
+	switchToInput() {
+		this.setState({
+			type: 'input'
+		})
+	}
 	render() {
 		if (this.state.type === 'input'){
+			if (this.state.text){
+				return (
+		        	<input type='text' defaultValue={this.state.text} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`}></input>
+				)
+			}
 			return (
 	        	<input type='text' placeholder={this.props.placeholder} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`}></input>
 			)
 		}
 		return (
-			<img src={this.state.img} className={this.state.imgClass}/>
+			<img src={this.state.img} className={this.state.imgClass} onClick={this.switchToInput.bind(this)}/>
 		)
 	}
 }

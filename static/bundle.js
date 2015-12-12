@@ -117,10 +117,14 @@
 				// get text for id of div where image will go
 				var identifier = _reactDom2['default'].findDOMNode(this).className;
 				var text = _reactDom2['default'].findDOMNode(this).value;
+
+				this.setState({
+					text: text
+				});
 				// if there is text in the input box...
 				if (text.length > 0) {
 					// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-					(0, _api.getHandwriting)(text, this.props.index, function (source) {
+					(0, _api.getHandwriting)(text, function (source) {
 						return _this.switchToImage(source);
 					});
 				}
@@ -137,12 +141,29 @@
 				});
 			}
 		}, {
+			key: 'switchToInput',
+			value: function switchToInput() {
+				this.setState({
+					type: 'input'
+				});
+			}
+		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				// if (this.state.type === 'input' && this.state.text.length){
+				// 	ReactDOM.findDOMNode(this).focus()
+				// }
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				if (this.state.type === 'input') {
+					if (this.state.text) {
+						return _react2['default'].createElement('input', { type: 'text', defaultValue: this.state.text, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index });
+					}
 					return _react2['default'].createElement('input', { type: 'text', placeholder: this.props.placeholder, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index });
 				}
-				return _react2['default'].createElement('img', { src: this.state.img, className: this.state.imgClass });
+				return _react2['default'].createElement('img', { src: this.state.img, className: this.state.imgClass, onClick: this.switchToInput.bind(this) });
 			}
 		}]);
 
@@ -20311,7 +20332,7 @@
 
 	var _config = __webpack_require__(196);
 
-	function getHandwriting(text, index, cb) {
+	function getHandwriting(text, cb) {
 		var parameters = {
 			url: 'render/png?',
 			handwriting_id: '31SB2CWG00DZ',
@@ -20331,9 +20352,7 @@
 		}, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				// Confirm receipt of status: OK
-				// let img = document.createElement('img')
 				var src = 'https://' + _config.tokens.KEY + ':' + _config.tokens.SECRET + '@api.handwriting.io/render/png?handwriting_id=' + parameters.handwriting_id + '&handwriting_size=' + parameters.handwriting_size + '&line_spacing=' + parameters.line_spacing + '&handwriting_color=%23000000&width=' + parameters.width + '&height=' + parameters.height + '&text=' + text;
-				// img.className = 'image-' + index
 				cb(src);
 			}
 		});
