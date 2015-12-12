@@ -21,13 +21,13 @@ class Handwriting extends React.Component {
 	}
 	// when the input loses focus...
 	onBlur() {
-		// get text for image class and div where it will go
+		// get text for id of div where image will go
 		let identifier = ReactDOM.findDOMNode(this).className
 		let text = ReactDOM.findDOMNode(this).value
 		// if there is text in the input box...
 		if (text.length > 0){
 			// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-			getHandwriting(text, identifier, data => appendToPage(data, identifier))
+			getHandwriting(text, this.props.index, data => appendToPage(data, identifier))
 		}
 	}
 	render() {

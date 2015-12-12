@@ -107,13 +107,13 @@
 		}, {
 			key: 'onBlur',
 			value: function onBlur() {
-				// get text for image class and div where it will go
+				// get text for id of div where image will go
 				var identifier = _reactDom2['default'].findDOMNode(this).className;
 				var text = _reactDom2['default'].findDOMNode(this).value;
 				// if there is text in the input box...
 				if (text.length > 0) {
 					// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-					(0, _api.getHandwriting)(text, identifier, function (data) {
+					(0, _api.getHandwriting)(text, this.props.index, function (data) {
 						return (0, _functions.appendToPage)(data, identifier);
 					});
 				}
@@ -20305,7 +20305,7 @@
 
 	var _config = __webpack_require__(197);
 
-	function getHandwriting(text, imgClass, cb) {
+	function getHandwriting(text, index, cb) {
 		var parameters = {
 			url: 'render/png?',
 			handwriting_id: '31SB2CWG00DZ',
@@ -20327,7 +20327,7 @@
 				// Confirm receipt of status: OK
 				var img = document.createElement('img');
 				img.src = 'https://' + _config.tokens.KEY + ':' + _config.tokens.SECRET + '@api.handwriting.io/render/png?handwriting_id=' + parameters.handwriting_id + '&handwriting_size=' + parameters.handwriting_size + '&line_spacing=' + parameters.line_spacing + '&handwriting_color=%23000000&width=' + parameters.width + '&height=' + parameters.height + '&text=' + text;
-				img.className = imgClass;
+				img.className = 'image-' + index;
 				cb(img);
 			}
 		});

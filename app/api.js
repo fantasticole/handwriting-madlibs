@@ -1,7 +1,7 @@
 import request from 'browser-request'
 import {tokens} from 'config'
 
-export function getHandwriting(text, imgClass, cb){
+export function getHandwriting(text, index, cb){
 	let parameters = {
 		url: 'render/png?',
 		handwriting_id: '31SB2CWG00DZ',
@@ -23,7 +23,7 @@ export function getHandwriting(text, imgClass, cb){
 	    // Confirm receipt of status: OK
 		let img = document.createElement('img')
 	    img.src = 'https://'+tokens.KEY+':'+tokens.SECRET+'@api.handwriting.io/render/png?handwriting_id='+parameters.handwriting_id+'&handwriting_size='+parameters.handwriting_size+'&line_spacing='+parameters.line_spacing+'&handwriting_color=%23000000&width='+parameters.width+'&height='+parameters.height+'&text='+text
-	    img.className = imgClass
+	    img.className = 'image-' + index
 	    cb(img)
 	  }
 	})
