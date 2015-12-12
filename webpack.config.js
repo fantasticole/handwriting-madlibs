@@ -34,6 +34,12 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
+            },
+            // JPGs
+            {
+                test: /\.jpg$/,
+                loader: "url-loader",
+                query: { mimetype: "image/jpg" }
             }
         ]
     },
