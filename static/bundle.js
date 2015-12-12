@@ -107,11 +107,12 @@
 		}, {
 			key: 'onBlur',
 			value: function onBlur() {
-				var thisClass = _reactDom2['default'].findDOMNode(this).className;
+				// get text for image class and div where it will go
+				var identifier = _reactDom2['default'].findDOMNode(this).className;
 				var text = _reactDom2['default'].findDOMNode(this).value;
 				// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-				(0, _api.getHandwriting)(text, thisClass, function (data) {
-					return (0, _functions.appendToPage)(data, 'img');
+				(0, _api.getHandwriting)(text, identifier, function (data) {
+					return (0, _functions.appendToPage)(data, identifier);
 				});
 			}
 		}, {
@@ -183,6 +184,7 @@
 
 				if (story) {
 					var madlib = story.map(function (piece, i) {
+						// if the part of the story is a string, add it to the page as a paragraph
 						if (piece.story_type === 'string') {
 							return _react2['default'].createElement(
 								'p',
@@ -190,7 +192,12 @@
 								piece.content
 							);
 						}
-						return _react2['default'].createElement(Handwriting, { key: i, placeholder: piece.content, index: i });
+						// wrap input in a div which will hold the image when the input is replaced
+						return _react2['default'].createElement(
+							'div',
+							{ id: 'element-' + i, key: i },
+							_react2['default'].createElement(Handwriting, { placeholder: piece.content, index: i })
+						);
 					});
 					return _react2['default'].createElement(
 						'div',

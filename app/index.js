@@ -21,10 +21,11 @@ class Handwriting extends React.Component {
 	}
 	// when the input loses focus...
 	onBlur() {
-		let thisClass = ReactDOM.findDOMNode(this).className
+		// get text for image class and div where it will go
+		let identifier = ReactDOM.findDOMNode(this).className
 		let text = ReactDOM.findDOMNode(this).value
 		// send the value to be turned into a handwriting image and give it the class name of the input it will replace
-		getHandwriting(text, thisClass, data => appendToPage(data, 'img'))
+		getHandwriting(text, identifier, data => appendToPage(data, identifier))
 	}
 	render() {
 		return (
@@ -89,13 +90,17 @@ class Madlibs extends React.Component {
 
 		if (story){
 			let madlib = story.map(function(piece, i){
+				// if the part of the story is a string, add it to the page as a paragraph
 				if (piece.story_type === 'string'){
 					return (
 						<p key={i}>{piece.content}</p>
 					)
 				}
+				// wrap input in a div which will hold the image when the input is replaced
 				return (
-					<Handwriting key={i} placeholder={piece.content} index={i}/>
+					<div id={`element-${i}`} key={i}>
+						<Handwriting placeholder={piece.content} index={i}/>
+					</div>
 				)
 			})
 			return (
