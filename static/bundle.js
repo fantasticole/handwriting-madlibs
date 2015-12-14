@@ -124,6 +124,8 @@
 				// get text for id of div where image will go
 				var identifier = _reactDom2['default'].findDOMNode(this).className;
 				var text = _reactDom2['default'].findDOMNode(this).value;
+				// replace any of these chracters: `#$%^&*()[]\;><{} with a ?
+				text = text.replace(/([\`\#\$\%\^\&\*\(\)\[\]\\\;\>\<\{\}])/g, '?');
 
 				// have text available to be updated
 				this.setState({
@@ -137,6 +139,8 @@
 					});
 				}
 			}
+
+			// get rid of input and render image of text
 		}, {
 			key: 'switchToImage',
 			value: function switchToImage(image) {
@@ -149,6 +153,8 @@
 					imgClass: imgClass
 				});
 			}
+
+			// get rid of image of text and render input
 		}, {
 			key: 'switchToInput',
 			value: function switchToInput() {
@@ -194,16 +200,21 @@
 
 		_createClass(Paragraph, [{
 			key: 'componentWillMount',
+
+			// set state to hold shifted text
 			value: function componentWillMount() {
 				this.setState({
 					text: this.shiftText(this.props.text)
 				});
 			}
+
+			// move each letter 13 places away in the alphabet
 		}, {
 			key: 'shiftText',
 			value: function shiftText(string) {
 				var alphabet = 'abcdefghijklmnopqrstuvwxyz';
 				var upper = alphabet.toUpperCase();
+				// string to be returned
 				var shifted = '';
 				var loc = 0;
 				for (var x = 0; x < string.length; x++) {
@@ -233,9 +244,12 @@
 			key: 'render',
 			value: function render() {
 				var paragraph = undefined;
+				// if the parent says the text should be shifted...
 				if (this.props.shifted === true) {
+					// split the words on the state
 					var words = this.state.text.split(' ');
 					paragraph = words.map(function (word, x) {
+						// render each hidden word as a <p>
 						return _react2['default'].createElement(
 							'p',
 							{ className: 'blurry', key: x },
@@ -243,8 +257,10 @@
 						);
 					});
 				} else {
+					// split the words from the props
 					var words = this.props.text.split(' ');
 					paragraph = words.map(function (word, x) {
+						// render each hidden word as a <p>
 						return _react2['default'].createElement(
 							'p',
 							{ key: x },
@@ -252,6 +268,7 @@
 						);
 					});
 				}
+				// render the words together in a span, so that long sentences will split nicely onto rows as needed
 				return _react2['default'].createElement(
 					'span',
 					null,

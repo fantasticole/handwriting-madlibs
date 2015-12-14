@@ -33,6 +33,8 @@ class Handwriting extends React.Component {
 		// get text for id of div where image will go
 		let identifier = ReactDOM.findDOMNode(this).className
 		let text = ReactDOM.findDOMNode(this).value
+		// replace any of these chracters: `#$%^&*()[]\;><{} with a ?
+		text = text.replace(/([\`\#\$\%\^\&\*\(\)\[\]\\\;\>\<\{\}])/g, '?')
 
 		// have text available to be updated
 		this.setState({
@@ -44,6 +46,7 @@ class Handwriting extends React.Component {
 			getHandwriting(text, source => this.switchToImage(source))
 		}
 	}
+	// get rid of input and render image of text
 	switchToImage(image) {
 		// set image class name
 		let imgClass = 'image-' + this.props.index
@@ -54,6 +57,7 @@ class Handwriting extends React.Component {
 			imgClass: imgClass
 		})
 	}
+	// get rid of image of text and render input
 	switchToInput() {
 		this.setState({
 			type: 'input'
@@ -85,14 +89,17 @@ class Handwriting extends React.Component {
 }
 
 class Paragraph extends React.Component {
+	// set state to hold shifted text
 	componentWillMount() {
 	    this.setState({
 	    	text: this.shiftText(this.props.text)
 	    })
 	}
+	// move each letter 13 places away in the alphabet
 	shiftText(string) {
 		let alphabet = 'abcdefghijklmnopqrstuvwxyz'
 		let upper = alphabet.toUpperCase()
+		// string to be returned
 		let shifted = ''
 		let loc = 0
 		for (let x = 0; x < string.length; x++){
@@ -120,21 +127,27 @@ class Paragraph extends React.Component {
 	}
 	render() {
 		let paragraph = undefined
+		// if the parent says the text should be shifted...
 		if (this.props.shifted === true){
+			// split the words on the state
 			let words = this.state.text.split(' ')
 			paragraph = words.map(function(word, x){
+				// render each hidden word as a <p>
 				return (
 					<p className='blurry' key={x}>{word}</p>
 				)
 			})
 		} else {
+			// split the words from the props
 			let words = this.props.text.split(' ')
 			paragraph = words.map(function(word, x){
+				// render each hidden word as a <p>
 				return (
 					<p key={x}>{word}</p>
 				)
 			})
 		}
+		// render the words together in a span, so that long sentences will split nicely onto rows as needed
 		return (
 			<span>{paragraph}</span>
 		)
