@@ -391,7 +391,7 @@
 					content: "verb"
 				}, {
 					story_type: "string",
-					content: " it over."
+					content: " it over.'"
 				}];
 
 				this.setState({

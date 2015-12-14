@@ -293,7 +293,7 @@ class Madlibs extends React.Component {
 			},
 		    {
 		    	story_type: "string",
-			    content: " it over."
+			    content: " it over.'"
 			}
 	    ]
 
