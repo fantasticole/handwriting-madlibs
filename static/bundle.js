@@ -633,7 +633,7 @@
 					_react2['default'].createElement(
 						'h1',
 						null,
-						'Choose a Story!'
+						'Choose a Story:'
 					),
 					_react2['default'].createElement(
 						'ul',

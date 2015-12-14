@@ -548,7 +548,7 @@ class Madlibs extends React.Component {
 		}
 		return (
         	<div className='details'>
-	        	<h1>Choose a Story!</h1>
+	        	<h1>Choose a Story:</h1>
 	        	<ul>{stories}</ul>
 			</div>
 		)
