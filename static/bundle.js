@@ -273,6 +273,9 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var story = [{
+					story_type: 'topic',
+					content: 'Shopping'
+				}, {
 					story_type: 'string',
 					content: 'Today, I went to the '
 				}, {
@@ -330,10 +333,18 @@
 
 				if (story) {
 					var madlib = story.map(function (piece, i) {
-						// if the part of the story is a string, add it to the page as a paragraph
-						if (piece.story_type === 'string') {
-							return _react2['default'].createElement(Paragraph, { key: i, text: piece.content, shifted: shift });
+						// if the part of the story is a topic, add it to the page as a header
+						if (piece.story_type === 'topic') {
+							return _react2['default'].createElement(
+								'h1',
+								{ key: i },
+								piece.content
+							);
 						}
+						// if the part of the story is a string, add it to the page as a paragraph
+						else if (piece.story_type === 'string') {
+								return _react2['default'].createElement(Paragraph, { key: i, text: piece.content, shifted: shift });
+							}
 						// wrap input in a div which will hold the image when the input is replaced
 						return _react2['default'].createElement(
 							'div',

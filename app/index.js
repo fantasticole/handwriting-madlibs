@@ -142,6 +142,10 @@ class Madlibs extends React.Component {
 	componentDidMount() {
 	    let story = [
 		    {
+		    	story_type: 'topic',
+			    content: 'Shopping'
+			},
+		    {
 		    	story_type: 'string',
 			    content: 'Today, I went to the '
 			},
@@ -206,8 +210,14 @@ class Madlibs extends React.Component {
 
 		if (story){
 			let madlib = story.map(function(piece, i){
+				// if the part of the story is a topic, add it to the page as a header
+				if (piece.story_type === 'topic'){
+					return (
+						<h1 key={i}>{piece.content}</h1>
+					)
+				}
 				// if the part of the story is a string, add it to the page as a paragraph
-				if (piece.story_type === 'string'){
+				else if (piece.story_type === 'string'){
 					return (
 						<Paragraph key={i} text={piece.content} shifted={shift}/>
 					)
