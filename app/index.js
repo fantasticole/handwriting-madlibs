@@ -125,7 +125,7 @@ class Paragraph extends React.Component {
 			)
 		} else {
 			return (
-				<p className='blurry'>{this.props.text}</p>
+				<p>{this.props.text}</p>
 			)
 		}
 	}

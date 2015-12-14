@@ -241,7 +241,7 @@
 				} else {
 					return _react2['default'].createElement(
 						'p',
-						{ className: 'blurry' },
+						null,
 						this.props.text
 					);
 				}
