@@ -199,6 +199,7 @@
 				var shifted = '';
 				var loc = 0;
 				for (var x = 0; x < string.length; x++) {
+					// if the current character is found in the lowercase alphabet...
 					if (alphabet.indexOf(string[x]) !== -1) {
 						loc = alphabet.indexOf(string[x]);
 						loc = loc + 13;
@@ -206,27 +207,36 @@
 							loc = loc - 26;
 						}
 						shifted += alphabet[loc];
+						// if the current character is found in the uppercase alphabet...
 					} else if (upper.indexOf(string[x]) !== -1) {
-						loc = upper.indexOf(string[x]);
-						loc = loc + 13;
-						if (loc > 25) {
-							loc = loc - 26;
+							loc = upper.indexOf(string[x]);
+							loc = loc + 13;
+							if (loc > 25) {
+								loc = loc - 26;
+							}
+							shifted += upper[loc];
+						} else {
+							shifted += string[x];
 						}
-						shifted += upper[loc];
-					} else {
-						shifted += string[x];
-					}
 				}
 				return shifted;
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				return _react2['default'].createElement(
-					'p',
-					{ className: 'blurry' },
-					this.state.text
-				);
+				if (this.props.shifted === true) {
+					return _react2['default'].createElement(
+						'p',
+						{ className: 'blurry' },
+						this.state.text
+					);
+				} else {
+					return _react2['default'].createElement(
+						'p',
+						{ className: 'blurry' },
+						this.props.text
+					);
+				}
 			}
 		}]);
 
@@ -246,7 +256,9 @@
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.setState({
-					story: undefined
+					story: undefined,
+					shifted: true,
+					button: 'Reveal Text'
 				});
 			}
 		}, {
@@ -289,15 +301,30 @@
 				});
 			}
 		}, {
+			key: 'handleClick',
+			value: function handleClick() {
+				// map button text options
+				var changeButton = {
+					'Hide Text': 'Reveal Text',
+					'Reveal Text': 'Hide Text'
+				};
+				// toggle text shifting and button text
+				this.setState({
+					shifted: !this.state.shifted,
+					button: changeButton[this.state.button]
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var story = this.state.story;
+				var shift = this.state.shifted;
 
 				if (story) {
 					var madlib = story.map(function (piece, i) {
 						// if the part of the story is a string, add it to the page as a paragraph
 						if (piece.story_type === 'string') {
-							return _react2['default'].createElement(Paragraph, { key: i, text: piece.content });
+							return _react2['default'].createElement(Paragraph, { key: i, text: piece.content, shifted: shift });
 						}
 						// wrap input in a div which will hold the image when the input is replaced
 						return _react2['default'].createElement(
@@ -312,8 +339,8 @@
 						madlib,
 						_react2['default'].createElement(
 							'button',
-							null,
-							'Reveal!'
+							{ onClick: this.handleClick.bind(this) },
+							this.state.button
 						)
 					);
 				}

@@ -90,6 +90,7 @@ class Paragraph extends React.Component {
 		let shifted = ''
 		let loc = 0
 		for (let x = 0; x < string.length; x++){
+			// if the current character is found in the lowercase alphabet...
 			if (alphabet.indexOf(string[x]) !== -1){
 				loc = alphabet.indexOf(string[x])
 				loc=loc+13
@@ -97,6 +98,7 @@ class Paragraph extends React.Component {
 					loc=loc-26
 				}
 				shifted += alphabet[loc]
+			// if the current character is found in the uppercase alphabet...
 			} else if (upper.indexOf(string[x]) !== -1){
 				loc = upper.indexOf(string[x])
 				loc=loc+13
@@ -111,16 +113,24 @@ class Paragraph extends React.Component {
 		return shifted
 	}
 	render() {
-		return (
-			<p className='blurry'>{this.state.text}</p>
-		)
+		if (this.props.shifted === true){
+			return (
+				<p className='blurry'>{this.state.text}</p>
+			)
+		} else {
+			return (
+				<p className='blurry'>{this.props.text}</p>
+			)
+		}
 	}
 }
 
 class Madlibs extends React.Component {
 	componentWillMount() {
 	    this.setState({
-	    	story: undefined
+	    	story: undefined,
+	    	shifted: true,
+	    	button: 'Reveal Text'
 	    })
 	}
 	componentDidMount() {
@@ -172,15 +182,28 @@ class Madlibs extends React.Component {
 	    })
 
 	}
+	handleClick() {
+		// map button text options
+		let changeButton = {
+			'Hide Text': 'Reveal Text',
+			'Reveal Text': 'Hide Text'
+		}
+		// toggle text shifting and button text
+		this.setState({
+			shifted: !this.state.shifted,
+	    	button: changeButton[this.state.button]
+		})
+	}
 	render() {
 		let story = this.state.story
+		let shift = this.state.shifted
 
 		if (story){
 			let madlib = story.map(function(piece, i){
 				// if the part of the story is a string, add it to the page as a paragraph
 				if (piece.story_type === 'string'){
 					return (
-						<Paragraph key={i} text={piece.content} />
+						<Paragraph key={i} text={piece.content} shifted={shift}/>
 					)
 				}
 				// wrap input in a div which will hold the image when the input is replaced
@@ -193,7 +216,7 @@ class Madlibs extends React.Component {
 			return (
 	        	<div className='details'>
 		        	{madlib}
-		        	<button>Reveal!</button>
+		        	<button onClick={this.handleClick.bind(this)}>{this.state.button}</button>
 				</div>
 			)
 		}
