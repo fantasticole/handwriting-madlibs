@@ -659,7 +659,9 @@
 			key: 'changeStory',
 			value: function changeStory() {
 				this.setState({
-					story: undefined
+					story: undefined,
+					shifted: true,
+					button: 'Reveal Text'
 				});
 			}
 		}, {
@@ -673,7 +675,7 @@
 
 				if (story) {
 					var madlib = story.map(function (piece, i) {
-						// if the part of the story is a topic, add it to the page as a header
+						// if the part of the story is a topic, add it to the page as a header above a not about characters that won't render
 						if (piece.story_type === 'topic') {
 							return _react2['default'].createElement(
 								'header',
