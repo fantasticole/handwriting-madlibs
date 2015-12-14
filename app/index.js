@@ -465,11 +465,143 @@ class Madlibs extends React.Component {
 			    content: "."
 			}
 	    ]
+
+	    let third = [
+		    {
+		    	story_type: "topic",
+			    content: "Amusement Parks"
+			},
+		    {
+		    	story_type: "string",
+			    content: "An amusement park is always fun to visit on a hot summer"
+			},
+		    {
+		    	story_type: "input",
+			    content: "noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: ". When you get there, you can wear your"
+			},
+		    {
+		    	story_type: "input",
+			    content: "article of clothing"
+			},
+		    {
+		    	story_type: "string",
+			    content: " and go for a swim. And there are lots of"
+			},
+		    {
+		    	story_type: "input",
+			    content: "adjective"
+			},
+		    {
+		    	story_type: "string",
+			    content: "things to eat. You can start off with a/an "
+			},
+		    {
+		    	story_type: "input",
+			    content: "adjective"
+			},
+		    {
+		    	story_type: "string",
+			    content: "-dog on a/an"
+			},
+		    {
+		    	story_type: "input",
+			    content: "noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: "with mustard, relish and"
+			},
+		    {
+		    	story_type: "input",
+			    content: "plural nouns"
+			},
+		    {
+		    	story_type: "string",
+			    content: "on it. Then you can have a buttered ear of"
+			},
+		    {
+		    	story_type: "input",
+			    content: "noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: " with a nice"
+			},
+		    {
+		    	story_type: "input",
+			    content: "adjective"
+			},
+		    {
+		    	story_type: "string",
+			    content: "slice of "
+			},
+		    {
+		    	story_type: "input",
+			    content: "type of food"
+			},
+		    {
+		    	story_type: "string",
+			    content: "and a big bottle of cold"
+			},
+		    {
+		    	story_type: "input",
+			    content: "type of liquid"
+			},
+		    {
+		    	story_type: "string",
+			    content: ". When you are full, it's time to go on the roller coaster, which should settle your"
+			},
+		    {
+		    	story_type: "input",
+			    content: "part of the body"
+			},
+		    {
+		    	story_type: "string",
+			    content: ". Other amusement park rides are the bumper cars, which have little "
+			},
+		    {
+		    	story_type: "input",
+			    content: "plural noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: "that you drive and run into other"
+			},
+		    {
+		    	story_type: "input",
+			    content: "plural noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: ", and the merry-go-round, where you can sit on a big"
+			},
+		    {
+		    	story_type: "input",
+			    content: "animal"
+			},
+		    {
+		    	story_type: "string",
+			    content: " and try to grab the gold"
+			},
+		    {
+		    	story_type: "input",
+			    content: "noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: "as you ride past it."
+			}
+		]
+
 	    this.setState({
 	    	story: undefined,
 	    	shifted: true,
 	    	button: 'Reveal Text',
-	    	options: [first, second]
+	    	options: [first, second, third]
 	    })
 	}
 	handleClick() {
@@ -509,7 +641,10 @@ class Madlibs extends React.Component {
 				// if the part of the story is a topic, add it to the page as a header
 				if (piece.story_type === 'topic'){
 					return (
-						<h1 key={i}>{piece.content}</h1>
+						<header key={i}>
+							<h1>{piece.content}</h1>
+							<p className='note'>Note: <img className='noRender' src='../../static/images/characters.png' /> will render as question marks.</p>
+						</header>
 					)
 				}
 				// if the part of the story is a string, add it to the page as a paragraph

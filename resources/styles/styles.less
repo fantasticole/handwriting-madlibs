@@ -10,13 +10,13 @@ body {
 	width: 100vw;
 	background-image: url(../../static/images/windshield.jpg);
 	background-size: cover;
-	padding-top: 10vh;
+	padding-top: 5vh;
 	overflow-y: hidden;
 }
 
 .details {
 	width: 90vw;
-	height: 90vh;
+	height: 95vh;
 	margin: auto;
 	background-color: #F8F6F9;
 	box-shadow: 0 0 3px #000;
@@ -32,13 +32,27 @@ body {
 
 	h1 {
 		display: block;
-		margin: 10px auto 20px;
+		margin: 10px auto 5px;
 		text-align: center;
 	    font-size: 22px;
 	    text-transform: uppercase;
 	    width: 80%;
 	    border-bottom: 1px solid #979797;
 	    padding-bottom: 10px;
+	}
+
+	.note {
+		width: 100%;
+	    margin: 0 auto 20px;
+	    display: block;
+	    text-align: center;
+	    font-size: 15px;
+	}
+
+	.noRender {
+		width: 200px;
+	    vertical-align: bottom;
+	    display: inline-block;
 	}
 
 	p {
@@ -87,12 +101,19 @@ body {
 		font-family: 'HelveticaNeue';
 	}
 
+		.details button:active {
+			box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+			inset 0 -15px 30px rgba(255, 255, 255, 0.4),
+			inset 0 5px 12px rgba(0, 0, 0, 0.05);
+		}
+
 	.details ul {
 		padding: 0;
 	}
-	.details ul button {
-		display: block;
-	}
+
+		.details ul button {
+			display: block;
+		}
 
 	.details .actions {
 		width: 320px;
@@ -100,28 +121,24 @@ body {
 		display: block;
 	}
 
-	.details .actions button {
-		width: 140px;
-	}
+		.details .actions button {
+			width: 140px;
+		}
 
-	.details .actions button:last-child {
-		float: right;
-	}
-	.details button:active {
-		box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.4),
-		inset 0 -15px 30px rgba(255, 255, 255, 0.4),
-		inset 0 5px 12px rgba(0, 0, 0, 0.05);
-	}
+		.details .actions button:last-child {
+			float: right;
+		}
+
 
 
 @media (min-width:768px){
 	#app {
-		padding-top: 15vh;
+		padding-top: 10vh;
 	}
 
 	.details {
 		width: 80vw;
-		height: 85vh;
+		height: 90vh;
 		padding: 10px 30px;
 	}
 
