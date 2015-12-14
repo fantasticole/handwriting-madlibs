@@ -119,15 +119,25 @@ class Paragraph extends React.Component {
 		return shifted
 	}
 	render() {
+		let paragraph = undefined
 		if (this.props.shifted === true){
-			return (
-				<p className='blurry'>{this.state.text}</p>
-			)
+			let words = this.state.text.split(' ')
+			paragraph = words.map(function(word, x){
+				return (
+					<p className='blurry' key={x}>{word}</p>
+				)
+			})
 		} else {
-			return (
-				<p>{this.props.text}</p>
-			)
+			let words = this.props.text.split(' ')
+			paragraph = words.map(function(word, x){
+				return (
+					<p key={x}>{word}</p>
+				)
+			})
 		}
+		return (
+			<span>{paragraph}</span>
+		)
 	}
 }
 
@@ -142,48 +152,148 @@ class Madlibs extends React.Component {
 	componentDidMount() {
 	    let story = [
 		    {
-		    	story_type: 'topic',
-			    content: 'Shopping'
+		    	story_type: "topic",
+			    content: "How to Date the Coolest Guy/Girl in School"
+			},
+		    {
+		    	story_type: "string",
+			    content: "It's simple. Turn the "
+			},
+		    {
+		    	story_type: "input",
+			    content: "plural noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: ". Make him/her want "
+			},
+		    {
+		    	story_type: "input",
+			    content: "adverb"
 			},
 		    {
 		    	story_type: 'string',
-			    content: 'Today, I went to the '
+			    content: " to date you. Make sure you're always dressed to "
 			},
 		    {
-		    	story_type: 'input',
-			    content: 'location'
+		    	story_type: "input",
+			    content: "verb"
 			},
 		    {
-		    	story_type: 'string',
-			    content: ' to get some '
+		    	story_type: "string",
+			    content: ". Each and every day, wear a/an "
 			},
 		    {
-		    	story_type: 'input',
-			    content: 'plural noun'
+		    	story_type: "input",
+			    content: "article of clothing"
 			},
 		    {
-		    	story_type: 'string',
-			    content: '.'
+		    	story_type: "string",
+			    content: " that you know shows off your "
 			},
 		    {
-		    	story_type: 'string',
-			    content: ' Little did I know, the '
+		    	story_type: "input",
+			    content: "body part"
 			},
 		    {
-		    	story_type: 'input',
-			    content: 'job title'
+		    	story_type: "string",
+			    content: " to "
 			},
 		    {
-		    	story_type: 'string',
-			    content: ' was my '
+		    	story_type: "input",
+			    content: "adjective"
 			},
 		    {
-		    	story_type: 'input',
-			    content: 'family relation'
+		    	story_type: "string",
+			    content: " advantage and make your "
 			},
 		    {
-		    	story_type: 'string',
-			    content: '!'
+		    	story_type: "input",
+			    content: "noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: " look like a million "
+			},
+		    {
+		    	story_type: "input",
+			    content: "plural noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: ". Even if the two of you make meaningful "
+			},
+		    {
+		    	story_type: "input",
+			    content: "another body part"
+			},
+		    {
+		    	story_type: "string",
+			    content: " contact, don't admit it. No hugs or "
+			},
+		    {
+		    	story_type: "input",
+			    content: "plural noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: ". Just shake his/her "
+			},
+		    {
+		    	story_type: "input",
+			    content: "another body part"
+			},
+		    {
+		    	story_type: "string",
+			    content: " firmly. And remember, when he/she asks you out, even though a chill may run down your "
+			},
+		    {
+		    	story_type: "input",
+			    content: "noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: " and you can't stop your "
+			},
+		    {
+		    	story_type: "input",
+			    content: "noun"
+			},
+		    {
+		    	story_type: "string",
+			    content: " from "
+			},
+		    {
+		    	story_type: "input",
+			    content: "verb ending in 'ing'"
+			},
+		    {
+		    	story_type: "string",
+			    content: ", just play it"
+			},
+		    {
+		    	story_type: "input",
+			    content: "adjective"
+			},
+		    {
+		    	story_type: "string",
+			    content: ". Take a long pause before answering in a very "
+			},
+		    {
+		    	story_type: "input",
+			    content: "adjective"
+			},
+		    {
+		    	story_type: "string",
+			    content: " voice. 'I'll have to "
+			},
+		    {
+		    	story_type: "input",
+			    content: "verb"
+			},
+		    {
+		    	story_type: "string",
+			    content: " it over."
 			}
 	    ]
 

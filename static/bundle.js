@@ -232,19 +232,31 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var paragraph = undefined;
 				if (this.props.shifted === true) {
-					return _react2['default'].createElement(
-						'p',
-						{ className: 'blurry' },
-						this.state.text
-					);
+					var words = this.state.text.split(' ');
+					paragraph = words.map(function (word, x) {
+						return _react2['default'].createElement(
+							'p',
+							{ className: 'blurry', key: x },
+							word
+						);
+					});
 				} else {
-					return _react2['default'].createElement(
-						'p',
-						null,
-						this.props.text
-					);
+					var words = this.props.text.split(' ');
+					paragraph = words.map(function (word, x) {
+						return _react2['default'].createElement(
+							'p',
+							{ key: x },
+							word
+						);
+					});
 				}
+				return _react2['default'].createElement(
+					'span',
+					null,
+					paragraph
+				);
 			}
 		}]);
 
@@ -273,38 +285,113 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var story = [{
-					story_type: 'topic',
-					content: 'Shopping'
+					story_type: "topic",
+					content: "How to Date the Coolest Guy/Girl in School"
+				}, {
+					story_type: "string",
+					content: "It's simple. Turn the "
+				}, {
+					story_type: "input",
+					content: "plural noun"
+				}, {
+					story_type: "string",
+					content: ". Make him/her want "
+				}, {
+					story_type: "input",
+					content: "adverb"
 				}, {
 					story_type: 'string',
-					content: 'Today, I went to the '
+					content: " to date you. Make sure you're always dressed to "
 				}, {
-					story_type: 'input',
-					content: 'location'
+					story_type: "input",
+					content: "verb"
 				}, {
-					story_type: 'string',
-					content: ' to get some '
+					story_type: "string",
+					content: ". Each and every day, wear a/an "
 				}, {
-					story_type: 'input',
-					content: 'plural noun'
+					story_type: "input",
+					content: "article of clothing"
 				}, {
-					story_type: 'string',
-					content: '.'
+					story_type: "string",
+					content: " that you know shows off your "
 				}, {
-					story_type: 'string',
-					content: ' Little did I know, the '
+					story_type: "input",
+					content: "body part"
 				}, {
-					story_type: 'input',
-					content: 'job title'
+					story_type: "string",
+					content: " to "
 				}, {
-					story_type: 'string',
-					content: ' was my '
+					story_type: "input",
+					content: "adjective"
 				}, {
-					story_type: 'input',
-					content: 'family relation'
+					story_type: "string",
+					content: " advantage and make your "
 				}, {
-					story_type: 'string',
-					content: '!'
+					story_type: "input",
+					content: "noun"
+				}, {
+					story_type: "string",
+					content: " look like a million "
+				}, {
+					story_type: "input",
+					content: "plural noun"
+				}, {
+					story_type: "string",
+					content: ". Even if the two of you make meaningful "
+				}, {
+					story_type: "input",
+					content: "another body part"
+				}, {
+					story_type: "string",
+					content: " contact, don't admit it. No hugs or "
+				}, {
+					story_type: "input",
+					content: "plural noun"
+				}, {
+					story_type: "string",
+					content: ". Just shake his/her "
+				}, {
+					story_type: "input",
+					content: "another body part"
+				}, {
+					story_type: "string",
+					content: " firmly. And remember, when he/she asks you out, even though a chill may run down your "
+				}, {
+					story_type: "input",
+					content: "noun"
+				}, {
+					story_type: "string",
+					content: " and you can't stop your "
+				}, {
+					story_type: "input",
+					content: "noun"
+				}, {
+					story_type: "string",
+					content: " from "
+				}, {
+					story_type: "input",
+					content: "verb ending in 'ing'"
+				}, {
+					story_type: "string",
+					content: ", just play it"
+				}, {
+					story_type: "input",
+					content: "adjective"
+				}, {
+					story_type: "string",
+					content: ". Take a long pause before answering in a very "
+				}, {
+					story_type: "input",
+					content: "adjective"
+				}, {
+					story_type: "string",
+					content: " voice. 'I'll have to "
+				}, {
+					story_type: "input",
+					content: "verb"
+				}, {
+					story_type: "string",
+					content: " it over."
 				}];
 
 				this.setState({
