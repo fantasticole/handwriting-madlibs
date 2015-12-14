@@ -597,15 +597,20 @@
 						'div',
 						{ className: 'details' },
 						madlib,
+						_react2['default'].createElement('br', null),
 						_react2['default'].createElement(
-							'button',
-							{ onClick: this.handleClick.bind(this) },
-							this.state.button
-						),
-						_react2['default'].createElement(
-							'button',
-							{ onClick: this.changeStory.bind(this) },
-							'Change Story'
+							'div',
+							{ className: 'actions' },
+							_react2['default'].createElement(
+								'button',
+								{ onClick: this.handleClick.bind(this) },
+								this.state.button
+							),
+							_react2['default'].createElement(
+								'button',
+								{ onClick: this.changeStory.bind(this) },
+								'Change Story'
+							)
 						)
 					);
 				} else {

@@ -528,8 +528,11 @@ class Madlibs extends React.Component {
 			return (
 	        	<div className='details'>
 		        	{madlib}
-		        	<button onClick={this.handleClick.bind(this)}>{this.state.button}</button>
-		        	<button onClick={this.changeStory.bind(this)}>Change Story</button>
+		        	<br/>
+		        	<div className='actions'>
+			        	<button onClick={this.handleClick.bind(this)}>{this.state.button}</button>
+			        	<button onClick={this.changeStory.bind(this)}>Change Story</button>
+		        	</div>
 				</div>
 			)
 		}
