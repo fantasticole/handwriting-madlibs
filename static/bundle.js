@@ -292,16 +292,7 @@
 		_createClass(Madlibs, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
-				this.setState({
-					story: undefined,
-					shifted: true,
-					button: 'Reveal Text'
-				});
-			}
-		}, {
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var story = [{
+				var first = [{
 					story_type: "topic",
 					content: "How to Date the Coolest Guy/Girl in School"
 				}, {
@@ -411,8 +402,132 @@
 					content: " it over.'"
 				}];
 
+				var second = [{
+					story_type: "topic",
+					content: "Our Solar System"
+				}, {
+					story_type: "string",
+					content: "When we look up into the sky on a/an "
+				}, {
+					story_type: "input",
+					content: "adjective"
+				}, {
+					story_type: "string",
+					content: " summer night, we see millions of tiny spots of light. Each one represetns a/an "
+				}, {
+					story_type: "input",
+					content: "noun"
+				}, {
+					story_type: 'string',
+					content: ", which is the center of a/an "
+				}, {
+					story_type: "input",
+					content: "adjective"
+				}, {
+					story_type: "string",
+					content: " solar system with dozens of "
+				}, {
+					story_type: "input",
+					content: "plural noun"
+				}, {
+					story_type: "string",
+					content: " revolving "
+				}, {
+					story_type: "input",
+					content: "adverb"
+				}, {
+					story_type: "string",
+					content: " around a distant sun. Sometimes these suns expand and begin "
+				}, {
+					story_type: "input",
+					content: "verb ending in 'ing'"
+				}, {
+					story_type: "string",
+					content: " their neighbors. Soon they will become so big, they will turn into "
+				}, {
+					story_type: "input",
+					content: "silly word (plural)"
+				}, {
+					story_type: "string",
+					content: ". Eventually they subside and become "
+				}, {
+					story_type: "input",
+					content: "adjective"
+				}, {
+					story_type: "string",
+					content: " giants or perhaps black "
+				}, {
+					story_type: "input",
+					content: "plural noun"
+				}, {
+					story_type: "string",
+					content: ". Our own planet, which we call "
+				}, {
+					story_type: "input",
+					content: "first name"
+				}, {
+					story_type: "string",
+					content: ", circles around our "
+				}, {
+					story_type: "input",
+					content: "adjective"
+				}, {
+					story_type: "string",
+					content: "sun "
+				}, {
+					story_type: "input",
+					content: "number"
+				}, {
+					story_type: "string",
+					content: "times every year. There are eight other planets in our solar system. They are named "
+				}, {
+					story_type: "input",
+					content: "another first name"
+				}, {
+					story_type: "string",
+					content: ", "
+				}, {
+					story_type: "input",
+					content: "another first name"
+				}, {
+					story_type: "string",
+					content: ", "
+				}, {
+					story_type: "input",
+					content: "another first name"
+				}, {
+					story_type: "string",
+					content: ", "
+				}, {
+					story_type: "input",
+					content: "another first name"
+				}, {
+					story_type: "string",
+					content: ", "
+				}, {
+					story_type: "input",
+					content: "another first name"
+				}, {
+					story_type: "string",
+					content: ", "
+				}, {
+					story_type: "input",
+					content: "another first name"
+				}, {
+					story_type: "string",
+					content: ", Jupiter and Mars. Scientists who study these planets are called"
+				}, {
+					story_type: "input",
+					content: "plural noun"
+				}, {
+					story_type: "string",
+					content: "."
+				}];
 				this.setState({
-					story: story
+					story: undefined,
+					shifted: true,
+					button: 'Reveal Text',
+					options: [first, second]
 				});
 			}
 		}, {
@@ -430,8 +545,30 @@
 				});
 			}
 		}, {
+			key: 'chooseStory',
+			value: function chooseStory(event) {
+				var current = event.target.className;
+				// get story index
+				var index = parseInt(current.slice(current.indexOf('-') + 1));
+
+				// set story by index in options
+				this.setState({
+					story: this.state.options[index]
+				});
+			}
+		}, {
+			key: 'changeStory',
+			value: function changeStory() {
+				this.setState({
+					story: undefined
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
+				var stories = undefined;
 				var story = this.state.story;
 				var shift = this.state.shifted;
 
@@ -464,16 +601,39 @@
 							'button',
 							{ onClick: this.handleClick.bind(this) },
 							this.state.button
+						),
+						_react2['default'].createElement(
+							'button',
+							{ onClick: this.changeStory.bind(this) },
+							'Change Story'
 						)
 					);
+				} else {
+					(function () {
+						// store function as variable to pass to button
+						var clickFunction = _this2.chooseStory.bind(_this2);
+						// list story options
+						stories = _this2.state.options.map(function (story, y) {
+							return _react2['default'].createElement(
+								'button',
+								{ key: y, className: 'story-' + y, onClick: clickFunction },
+								story[0].content
+							);
+						});
+					})();
 				}
 				return _react2['default'].createElement(
 					'div',
 					{ className: 'details' },
 					_react2['default'].createElement(
-						'p',
+						'h1',
 						null,
-						'Loading...'
+						'Choose a Story!'
+					),
+					_react2['default'].createElement(
+						'ul',
+						null,
+						stories
 					)
 				);
 			}
@@ -20574,7 +20734,7 @@
 		}, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				// Confirm receipt of status: OK
-				var src = 'https://' + _config.tokens.KEY + ':' + _config.tokens.SECRET + '@api.handwriting.io/render/png?handwriting_id=' + parameters.handwriting_id + '&handwriting_size=' + parameters.handwriting_size + '&line_spacing=' + parameters.line_spacing + '&handwriting_color=%23000000&width=' + parameters.width + '&height=' + parameters.height + '&min_padding=' + parameters.min_padding + '&text=' + text;
+				var src = 'https://' + _config.tokens.KEY + ':' + _config.tokens.SECRET + '@api.handwriting.io/render/png?handwriting_id=' + parameters.handwriting_id + '&handwriting_size=' + parameters.handwriting_size + '&line_spacing=' + parameters.line_spacing + '&handwriting_color=%23062C82&width=' + parameters.width + '&height=' + parameters.height + '&min_padding=' + parameters.min_padding + '&text=' + text;
 				cb(src);
 			}
 		});
