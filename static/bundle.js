@@ -20551,13 +20551,17 @@
 	var _config = __webpack_require__(197);
 
 	function getHandwriting(text, cb) {
+		var size = text.length * 10;
+		var extra = (text.match(/w/g) || []).length * 3;
+		size += extra;
 		var parameters = {
 			url: 'render/png?',
 			handwriting_id: '5WGWVW8800VV',
 			handwriting_size: '14px',
 			line_spacing: 1,
-			width: '130px',
-			height: '35px'
+			width: size + 'px',
+			height: '35px',
+			min_padding: '3px'
 		};
 
 		(0, _browserRequest2['default'])({
@@ -20570,7 +20574,7 @@
 		}, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				// Confirm receipt of status: OK
-				var src = 'https://' + _config.tokens.KEY + ':' + _config.tokens.SECRET + '@api.handwriting.io/render/png?handwriting_id=' + parameters.handwriting_id + '&handwriting_size=' + parameters.handwriting_size + '&line_spacing=' + parameters.line_spacing + '&handwriting_color=%23000000&width=' + parameters.width + '&height=' + parameters.height + '&text=' + text;
+				var src = 'https://' + _config.tokens.KEY + ':' + _config.tokens.SECRET + '@api.handwriting.io/render/png?handwriting_id=' + parameters.handwriting_id + '&handwriting_size=' + parameters.handwriting_size + '&line_spacing=' + parameters.line_spacing + '&handwriting_color=%23000000&width=' + parameters.width + '&height=' + parameters.height + '&min_padding=' + parameters.min_padding + '&text=' + text;
 				cb(src);
 			}
 		});
