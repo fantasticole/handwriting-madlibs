@@ -98,11 +98,18 @@
 				_reactDom2['default'].findDOMNode(this).addEventListener('keydown', this.handleKeyDown);
 			}
 		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				// Check for the user hitting enter on re-rendered input
+				if (this.state.type === 'input') {
+					_reactDom2['default'].findDOMNode(this).addEventListener('keydown', this.handleKeyDown);
+				}
+			}
+		}, {
 			key: 'handleKeyDown',
 			value: function handleKeyDown(key) {
 				// If the user hits enter...
-				var enter = 13;
-				if (key.keyCode === enter) {
+				if (key.keyCode === 13) {
 					// remove focus from the input
 					this.blur();
 				}
@@ -165,6 +172,7 @@
 					if (this.state.text) {
 						return _react2['default'].createElement('input', { type: 'text', defaultValue: this.state.text, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index, autoFocus: true, onFocus: this.handleFocus });
 					}
+					// or empty from the beginning
 					return _react2['default'].createElement('input', { type: 'text', placeholder: this.props.placeholder, onBlur: this.onBlur.bind(this), className: 'element-' + this.props.index });
 				}
 				// render an image

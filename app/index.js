@@ -15,10 +15,15 @@ class Handwriting extends React.Component {
 		// Check for the user hitting enter
 	    ReactDOM.findDOMNode(this).addEventListener('keydown', this.handleKeyDown)
 	}
+	componentDidUpdate() {
+		// Check for the user hitting enter on re-rendered input
+		if (this.state.type === 'input'){
+		    ReactDOM.findDOMNode(this).addEventListener('keydown', this.handleKeyDown)
+		}
+	}
 	handleKeyDown(key) {
 		// If the user hits enter...
-		let enter = 13
-		if (key.keyCode === enter){
+		if (key.keyCode === 13){
 			// remove focus from the input
 			this.blur()
 		}
@@ -67,6 +72,7 @@ class Handwriting extends React.Component {
 		        	<input type='text' defaultValue={this.state.text} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`} autoFocus onFocus={this.handleFocus}></input>
 				)
 			}
+			// or empty from the beginning
 			return (
 	        	<input type='text' placeholder={this.props.placeholder} onBlur={this.onBlur.bind(this)} className={`element-${this.props.index}`}></input>
 			)
